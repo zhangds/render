@@ -1,0 +1,23 @@
+FROM python:3.10.14-slim
+# MAINTAINER xxxxx<xxxxxxxxx@qq.com>
+
+ENV MYPATH /home/runapi
+WORKDIR $MYPATH
+
+COPY . $MYPATH
+RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --no-cache-dir --upgrade pip setuptools==57.5.0 && \
+    pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --no-cache-dir -r requirements.txt
+#RUN apt-get -y update && \
+#    apt-get -y upgrade && \
+#    apt-get install -y gcc pkg-config libgtk-3-dev libwebkit2gtk-4.0-dev && \
+#    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache/* /var/log/*.gz && \
+#    pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --no-cache-dir --upgrade pip setuptools==57.5.0 && \
+#    pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --no-cache-dir -r requirements.txt
+
+ENTRYPOINT ["python"]
+EXPOSE 9005
+CMD ["runApi.py"]
+#docker build --no-cache -t runapi:v1.0 .
+# volumn /home/runapi/frontend
+#docker run -p 9005:9005 -v ${frontend}:/home/runapi/frontend --name runapi -d runapi:v1.0
+#docker run -p 9005:9005 -v /home/zhangds/download/Mydata/rds/frontend_GitLab/superfrontend:/home/runapi/superfrontend --name runapi -d runapi:v1.0
